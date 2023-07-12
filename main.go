@@ -11,6 +11,11 @@ func (b *Board) BoardIinitializtion() { //碁盤を [........] 初期化
 	for i := 0; i < 64; i++ {
 		b.tokens[i] = 0
 	}
+
+	b.tokens[3+8*3] = 1 //中央コ初期化
+	b.tokens[4+8*4] = 1
+	b.tokens[3+8*4] = 2
+	b.tokens[4+8*3] = 2
 }
 
 func (b *Board) BoardShow() string {
@@ -25,17 +30,20 @@ func (b *Board) BoardShow() string {
 	return result
 }
 
-func (b *Board) Put(x, y int, u string) int { //int type 座標x, yを入力、int type tokens[]に保存
+func (b *Board) isPutValid(x, y int) int {
 	if x > 7 || x < 0 || y > 7 || y < 0 { //碁盤の中でわない error
-		fmt.Printf("碁盤の中でわないので、もう一回入力してください\n")
+		//fmt.Printf("碁盤の中でわないので、もう一回入力してください\n")
 		return 1
 	}
 
 	if b.tokens[x+8*y] != 0 {
-		fmt.Printf("駒はもう存在していますので、もう一回入力してください\n") //重複　error
+		//fmt.Printf("駒はもう存在していますので、もう一回入力してください\n") //重複　error
 		return 1
 	}
+	return 2
+}
 
+func (b *Board) Put(x, y int, u string) int { //int type 座標x, yを入力、int type tokens[]に保存
 	if u == "o" { //player1
 		b.tokens[x+8*y] = 1
 		return 0 //順調
@@ -57,6 +65,34 @@ func (b *Board) Get(x, y int) string { //int type tokens[] --> 駒文字
 	return "error" //予期以外
 }
 
-func main() {
+// func (b *Board) isReverse(x, y int) int {
+// 	if isPutValid(x, y) {
+// 		return 0
+// 	}
 
+// 	dx := [8]int{-1, -1, -1, 0, 0, 1, 1, 1} //左上，左，左下，上，下，右上，右，右下
+// 	dy := [8]int{-1, 0, 1, -1, 1, -1, 0, 1}
+
+// 	flipcount := 0
+// 	for i := 0; i < 8; i++ {
+// 		nx, ny := x+dx[i], y+dy[i]
+// 		count := o
+// 	}
+
+// 	for isPutValid(nx, ny) {
+//         nx += b.tokens[]
+//         ny +=
+// 	}
+// }
+
+func main() {
+	// var x, y int
+	board := Board{}
+
+	board.BoardIinitializtion() //碁盤を初期化
+	//
+	fmt.Printf("please input like: x[space]y\n")
+
+	// ボードの表示
+	fmt.Printf(board.BoardShow())
 }

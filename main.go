@@ -313,7 +313,6 @@ func main() {
 		}
 
 		if ReverseError == 2 {
-			fmt.Printf("i = %d\n", i)
 			fmt.Printf("そこには置けません。もう一度入力してください。\n")
 			board.ShowPlaceablePositions(board.CurrentTurn)
 			ReverseError = 0

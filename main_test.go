@@ -598,7 +598,7 @@ func TestCheckWin_Draw2(t *testing.T) {
 
 // プレイヤー1("o")が勝利するテスト1
 func TestCheckWin_P1_Win1(t *testing.T) {
-	// 盤面
+	// 盤面(簡単)
 	b := &Board{
 		tokens: []int{
 			0, 0, 0, 0, 0, 0, 0, 0,
@@ -612,7 +612,7 @@ func TestCheckWin_P1_Win1(t *testing.T) {
 		},
 	}
 	println(b.BoardShow()) // 盤面の表示(テストのテスト)
-	// 引き分け
+	// プレイヤー1("o")が勝利
 	if b.WinCheck() != "o" {
 		t.Errorf("Player1(\"o\") should win")
 	}
@@ -620,7 +620,7 @@ func TestCheckWin_P1_Win1(t *testing.T) {
 
 // プレイヤー1("o")が勝利するテスト2
 func TestCheckWin_P1_Win2(t *testing.T) {
-	// プレイヤー1が一個差で勝利する盤面
+	// 盤面(僅差)
 	b := &Board{
 		tokens: []int{
 			1, 1, 1, 1, 1, 1, 1, 1,
@@ -634,8 +634,96 @@ func TestCheckWin_P1_Win2(t *testing.T) {
 		},
 	}
 	println(b.BoardShow()) // 盤面の表示(テストのテスト)
-	// 引き分け
+	// プレイヤー1("o")が勝利
 	if b.WinCheck() != "o" {
 		t.Errorf("Player1(\"o\") should win")
+	}
+}
+
+// プレイヤー1("o")が勝利するテスト3
+func TestCheckWin_P1_Win3(t *testing.T) {
+	// 盤面(1だけ)
+	b := &Board{
+		tokens: []int{
+			1, 0, 1, 0, 0, 1, 1, 1,
+			0, 1, 0, 1, 0, 0, 0, 0,
+			0, 0, 0, 0, 0, 0, 0, 1,
+			0, 0, 0, 1, 0, 0, 1, 0,
+			0, 0, 1, 0, 0, 1, 0, 0,
+			0, 1, 0, 0, 1, 0, 0, 0,
+			0, 0, 0, 1, 0, 0, 0, 0,
+			0, 0, 1, 0, 0, 0, 0, 0,
+		},
+	}
+	println(b.BoardShow()) // 盤面の表示(テストのテスト)
+	// プレイヤー1("o")が勝利
+	if b.WinCheck() != "o" {
+		t.Errorf("Player1(\"o\") should win")
+	}
+}
+
+// プレイヤー2("x")が勝利するテスト1
+func TestCheckWin_P2_Win1(t *testing.T) {
+	// 盤面(簡単)
+	b := &Board{
+		tokens: []int{
+			0, 0, 0, 0, 0, 0, 0, 0,
+			0, 0, 0, 0, 0, 0, 0, 0,
+			0, 0, 0, 0, 0, 0, 0, 0,
+			0, 0, 0, 1, 2, 0, 0, 0,
+			0, 0, 0, 2, 2, 2, 0, 0,
+			0, 0, 0, 0, 0, 0, 0, 0,
+			0, 0, 0, 0, 0, 0, 0, 0,
+			0, 0, 0, 0, 0, 0, 0, 0,
+		},
+	}
+	println(b.BoardShow()) // 盤面の表示(テストのテスト)
+	// プレイヤー2("x")が勝利
+	if b.WinCheck() != "x" {
+		t.Errorf("Player2(\"x\") should win")
+	}
+}
+
+// プレイヤー2("x")が勝利するテスト2
+func TestCheckWin_P2_Win2(t *testing.T) {
+	// 盤面(僅差)
+	b := &Board{
+		tokens: []int{
+			0, 0, 0, 0, 0, 0, 0, 0,
+			0, 0, 0, 0, 0, 0, 0, 0,
+			2, 2, 2, 2, 1, 1, 1, 1,
+			1, 1, 1, 1, 1, 1, 1, 1,
+			2, 2, 2, 2, 2, 2, 2, 2,
+			0, 0, 0, 0, 0, 0, 0, 2,
+			0, 0, 0, 0, 0, 0, 0, 0,
+			0, 0, 0, 0, 0, 0, 0, 0,
+		},
+	}
+	println(b.BoardShow()) // 盤面の表示(テストのテスト)
+	// プレイヤー2("x")が勝利
+	if b.WinCheck() != "x" {
+		t.Errorf("Player2(\"x\") should win")
+	}
+}
+
+// プレイヤー2("x")が勝利するテスト3
+func TestCheckWin_P2_Win3(t *testing.T) {
+	// 盤面(2だけ)
+	b := &Board{
+		tokens: []int{
+			0, 0, 0, 0, 0, 0, 0, 0,
+			0, 0, 2, 0, 0, 0, 0, 0,
+			0, 2, 0, 0, 2, 0, 0, 0,
+			0, 0, 2, 0, 2, 0, 0, 0,
+			0, 0, 0, 2, 2, 0, 0, 0,
+			0, 0, 0, 0, 2, 0, 0, 2,
+			0, 0, 0, 0, 2, 0, 2, 0,
+			0, 0, 0, 0, 0, 0, 0, 0,
+		},
+	}
+	println(b.BoardShow()) // 盤面の表示(テストのテスト)
+	// プレイヤー2("x")が勝利
+	if b.WinCheck() != "x" {
+		t.Errorf("Player2(\"x\") should win")
 	}
 }

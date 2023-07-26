@@ -4,9 +4,9 @@ import (
 	"testing"
 )
 
-// 初期盤面からプレイヤー1("o")が(3,5)に駒を置くテスト
+// 盤面からプレイヤー1("o")が(3,5)に駒を置くテスト
 func TestPutToken_1P35_InitialBoard(t *testing.T) {
-	// 初期盤面
+	// 盤面
 	b := &Board{
 		tokens: []int{
 			0, 0, 0, 0, 0, 0, 0, 0,
@@ -33,9 +33,9 @@ func TestPutToken_1P35_InitialBoard(t *testing.T) {
 	}
 }
 
-// 初期盤面からプレイヤー1("o")が(5,3)に駒を置くテスト
+// 盤面からプレイヤー1("o")が(5,3)に駒を置くテスト
 func TestPutToken_1P53_InitialBoard(t *testing.T) {
-	// 初期盤面
+	// 盤面
 	b := &Board{
 		tokens: []int{
 			0, 0, 0, 0, 0, 0, 0, 0,
@@ -64,9 +64,9 @@ func TestPutToken_1P53_InitialBoard(t *testing.T) {
 
 // テスト追加
 
-// 初期盤面からプレイヤー1("o")が(4,2)に駒を置くテスト
+// 盤面からプレイヤー1("o")が(4,2)に駒を置くテスト
 func TestPutToken_1P42_InitialBoard(t *testing.T) {
-	// 初期盤面
+	// 盤面
 	b := &Board{
 		tokens: []int{
 			0, 0, 0, 0, 0, 0, 0, 0,
@@ -93,9 +93,9 @@ func TestPutToken_1P42_InitialBoard(t *testing.T) {
 	}
 }
 
-// 初期盤面からプレイヤー1("o")が(2,4)に駒を置くテスト
+// 盤面からプレイヤー1("o")が(2,4)に駒を置くテスト
 func TestPutToken_1P24_InitialBoard(t *testing.T) {
-	// 初期盤面
+	// 盤面
 	b := &Board{
 		tokens: []int{
 			0, 0, 0, 0, 0, 0, 0, 0,
@@ -122,9 +122,9 @@ func TestPutToken_1P24_InitialBoard(t *testing.T) {
 	}
 }
 
-// 初期盤面からプレイヤー2("x")が(2,3)に駒を置くテスト
+// 盤面からプレイヤー2("x")が(2,3)に駒を置くテスト
 func TestPutToken_2P23_InitialBoard(t *testing.T) {
-	// 初期盤面
+	// 盤面
 	b := &Board{
 		tokens: []int{
 			0, 0, 0, 0, 0, 0, 0, 0,
@@ -151,9 +151,9 @@ func TestPutToken_2P23_InitialBoard(t *testing.T) {
 	}
 }
 
-// 初期盤面からプレイヤー2("x")が(3,2)に駒を置くテスト
+// 盤面からプレイヤー2("x")が(3,2)に駒を置くテスト
 func TestPutToken_2P32_InitialBoard(t *testing.T) {
-	// 初期盤面
+	// 盤面
 	b := &Board{
 		tokens: []int{
 			0, 0, 0, 0, 0, 0, 0, 0,
@@ -180,9 +180,9 @@ func TestPutToken_2P32_InitialBoard(t *testing.T) {
 	}
 }
 
-// 初期盤面からプレイヤー2("x")が(4,5)に駒を置くテスト
+// 盤面からプレイヤー2("x")が(4,5)に駒を置くテスト
 func TestPutToken_2P45_InitialBoard(t *testing.T) {
-	// 初期盤面
+	// 盤面
 	b := &Board{
 		tokens: []int{
 			0, 0, 0, 0, 0, 0, 0, 0,
@@ -209,9 +209,9 @@ func TestPutToken_2P45_InitialBoard(t *testing.T) {
 	}
 }
 
-// 初期盤面からプレイヤー2("x")が(5,4)に駒を置くテスト
+// 盤面からプレイヤー2("x")が(5,4)に駒を置くテスト
 func TestPutToken_2P54_InitialBoard(t *testing.T) {
-	// 初期盤面
+	// 盤面
 	b := &Board{
 		tokens: []int{
 			0, 0, 0, 0, 0, 0, 0, 0,
@@ -240,7 +240,7 @@ func TestPutToken_2P54_InitialBoard(t *testing.T) {
 
 // oxの左にxを置く
 func TestPutToken_2P_Simple(t *testing.T) {
-	// 初期盤面
+	// 盤面
 	b := &Board{
 		tokens: []int{
 			0, 1, 2, 0, 0, 0, 0, 0,
@@ -269,7 +269,7 @@ func TestPutToken_2P_Simple(t *testing.T) {
 
 // xoの左にoを置く
 func TestPutToken_1P_Simple(t *testing.T) {
-	// 初期盤面
+	// 盤面
 	b := &Board{
 		tokens: []int{
 			0, 2, 1, 0, 0, 0, 0, 0,
@@ -298,7 +298,7 @@ func TestPutToken_1P_Simple(t *testing.T) {
 
 // プレイヤー1("o")が斜めにひっくり返すテスト
 func TestPutToken_1P_Diagonal(t *testing.T) {
-	// 初期盤面
+	// 盤面
 	b := &Board{
 		tokens: []int{
 			0, 0, 0, 0, 0, 0, 0, 0,
@@ -332,7 +332,7 @@ func TestPutToken_1P_Diagonal(t *testing.T) {
 
 // プレイヤー2("X")が斜めにひっくり返すテスト
 func TestPutToken_2P_Diagonal(t *testing.T) {
-	// 初期盤面
+	// 盤面
 	b := &Board{
 		tokens: []int{
 			0, 0, 0, 0, 0, 0, 0, 0,
@@ -366,7 +366,7 @@ func TestPutToken_2P_Diagonal(t *testing.T) {
 
 // 横一列をひっくり返すテスト
 func TestPutToken_1P_Horizontal(t *testing.T) {
-	// 初期盤面
+	// 盤面
 	b := &Board{
 		tokens: []int{
 			0, 2, 2, 2, 2, 2, 2, 1,
@@ -400,7 +400,7 @@ func TestPutToken_1P_Horizontal(t *testing.T) {
 
 // 縦一列をひっくり返すテスト
 func TestPutToken_2P_Vertical(t *testing.T) {
-	// 初期盤面
+	// 盤面
 	b := &Board{
 		tokens: []int{
 			0, 0, 0, 0, 0, 0, 0, 2,
@@ -434,7 +434,7 @@ func TestPutToken_2P_Vertical(t *testing.T) {
 
 // 縦一列と横一列をひっくり返すテスト
 func TestPutToken_1P_VerticalHorizontal(t *testing.T) {
-	// 初期盤面
+	// 盤面
 	b := &Board{
 		tokens: []int{
 			0, 2, 2, 2, 2, 2, 2, 1,
@@ -474,7 +474,7 @@ func TestPutToken_1P_VerticalHorizontal(t *testing.T) {
 
 // プレイヤー2("x")が一度に複数の駒をひっくり返す
 func TestPutToken_2P_Complex(t *testing.T) {
-	// 初期盤面
+	// 盤面
 	b := &Board{
 		tokens: []int{
 			0, 2, 0, 2, 0, 2, 0, 0,
@@ -529,7 +529,7 @@ func TestPutToken_2P_Complex(t *testing.T) {
 
 // プレイヤー1("o")が駒を置けないテスト
 func TestPutToken_P1_Unplaceable(t *testing.T) {
-	// 初期盤面
+	// 盤面
 	b := &Board{
 		tokens: []int{
 			0, 0, 1, 0, 0, 0, 0, 0,
@@ -549,5 +549,93 @@ func TestPutToken_P1_Unplaceable(t *testing.T) {
 	// (0,0)に置けない
 	if b.Get(0, 0) != "." {
 		t.Errorf("Wrong putting")
+	}
+}
+
+// 引き分けになるテスト1
+func TestCheckWin_Draw1(t *testing.T) {
+	// 盤面
+	b := &Board{
+		tokens: []int{
+			0, 0, 0, 0, 0, 0, 0, 0,
+			0, 0, 0, 0, 0, 0, 0, 0,
+			0, 0, 0, 0, 0, 0, 0, 0,
+			0, 0, 0, 1, 2, 0, 0, 0,
+			0, 0, 0, 2, 1, 0, 0, 0,
+			0, 0, 0, 0, 0, 0, 0, 0,
+			0, 0, 0, 0, 0, 0, 0, 0,
+			0, 0, 0, 0, 0, 0, 0, 0,
+		},
+	}
+	println(b.BoardShow()) // 盤面の表示(テストのテスト)
+	// 引き分け
+	if b.WinCheck() != "d" {
+		t.Errorf("This game should be draw")
+	}
+}
+
+// 引き分けになるテスト2
+func TestCheckWin_Draw2(t *testing.T) {
+	// 盤面
+	b := &Board{
+		tokens: []int{
+			1, 2, 1, 2, 1, 2, 1, 2,
+			1, 2, 1, 2, 1, 2, 1, 2,
+			1, 2, 1, 2, 1, 2, 1, 2,
+			1, 2, 1, 2, 1, 2, 1, 2,
+			1, 2, 1, 2, 1, 2, 1, 2,
+			1, 2, 1, 2, 1, 2, 1, 2,
+			1, 2, 1, 2, 1, 2, 1, 2,
+			1, 2, 1, 2, 1, 2, 1, 2,
+		},
+	}
+	println(b.BoardShow()) // 盤面の表示(テストのテスト)
+	// 引き分け
+	if b.WinCheck() != "d" {
+		t.Errorf("This game should be draw")
+	}
+}
+
+// プレイヤー1("o")が勝利するテスト1
+func TestCheckWin_P1_Win1(t *testing.T) {
+	// 盤面
+	b := &Board{
+		tokens: []int{
+			0, 0, 0, 0, 0, 0, 0, 0,
+			0, 0, 0, 0, 0, 0, 0, 0,
+			0, 0, 0, 0, 1, 0, 0, 0,
+			0, 0, 0, 1, 1, 0, 0, 0,
+			0, 0, 0, 2, 1, 0, 0, 0,
+			0, 0, 0, 0, 0, 0, 0, 0,
+			0, 0, 0, 0, 0, 0, 0, 0,
+			0, 0, 0, 0, 0, 0, 0, 0,
+		},
+	}
+	println(b.BoardShow()) // 盤面の表示(テストのテスト)
+	// 引き分け
+	if b.WinCheck() != "o" {
+		t.Errorf("Player1(\"o\") should win")
+	}
+}
+
+// プレイヤー1("o")が勝利するテスト2
+func TestCheckWin_P1_Win2(t *testing.T) {
+	// プレイヤー1が一個差で勝利する盤面
+	b := &Board{
+		tokens: []int{
+			1, 1, 1, 1, 1, 1, 1, 1,
+			0, 2, 2, 2, 2, 2, 2, 2,
+			0, 0, 0, 0, 0, 0, 0, 0,
+			0, 0, 0, 0, 0, 0, 0, 0,
+			0, 0, 0, 0, 0, 0, 0, 0,
+			0, 0, 0, 0, 0, 0, 0, 0,
+			0, 0, 0, 0, 0, 0, 0, 0,
+			0, 0, 0, 0, 0, 0, 0, 0,
+		},
+	}
+	println(b.BoardShow()) // 盤面の表示(テストのテスト)
+	// 引き分け
+	if b.WinCheck() != "o" {
+		t.Errorf("Player1(\"o\") should win")
 	}
 }

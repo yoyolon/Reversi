@@ -314,7 +314,8 @@ func main() {
 
 		if ReverseError == 2 {
 			fmt.Printf("i = %d\n", i)
-			fmt.Printf("周りに相手の駒は存在しない、或いは駒列の末に貴方の駒は存在しない、もう一回入力してください\n")
+			fmt.Printf("そこには置けません。もう一度入力してください。\n")
+			board.ShowPlaceablePositions(board.CurrentTurn)
 			ReverseError = 0
 		}
 
@@ -325,19 +326,20 @@ func main() {
 			count_1p, count_2p := board.CountTokens()
 			fmt.Printf("Player2: Input (x,y) o:%d x:%d\n", count_1p, count_2p) //player2のターン。説明を拡張したいならどうぞ
 		}
-		board.ShowPlaceablePositions(board.CurrentTurn)
+		// board.ShowPlaceablePositions(board.CurrentTurn)
 		//fmt.Printf("%s", board.BoardShow())
 		fmt.Scan(&x, &y)
 
 		for board.notPutValid(x-1, y-1) != 0 { //errorの場合、もう一度入力
 			println(x, y)
 			if board.notPutValid(x-1, y-1) == 1 {
-				fmt.Printf("碁盤の中ではないので、もう一回入力してください\n")
+				fmt.Printf("碁盤の外です。もう一度入力してください。\n")
 				// fmt.Printf(board.BoardShow())
 			} else if board.notPutValid(x-1, y-1) == 2 {
-				fmt.Printf("駒はもう存在していますので、もう一回入力してください\n")
+				fmt.Printf("すでに駒が置かれています。もう一度入力してください。\n")
 				// fmt.Printf(board.BoardShow())
 			}
+			board.ShowPlaceablePositions(board.CurrentTurn)
 			fmt.Scan(&x, &y)
 		}
 

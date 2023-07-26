@@ -1,6 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"strconv"
+)
 
 //基盤構造
 //tokens　コマ
@@ -168,6 +171,95 @@ func (b *Board) Reverse(x, y int) int {
 	return 0 //順調
 }
 
+// ボードの周りに座標がついた基盤展示　b.tokens[]を10*10の基盤で返す
+func (b *Board) BoardShow_with_coordinate() string {
+	var result string
+	for y := 0; y < 10; y++ {
+		// 上下の座標
+		if y == 0 || y == 9 {
+			for x := 0; x < 10; x++ {
+				if x == 0 || x == 9 {
+					result += "  "
+				} else {
+					result += strconv.Itoa(x)
+					result += " "
+				}
+			}
+			result += "\n"
+			continue
+		}
+		for x := 0; x < 10; x++ {
+			if x == 0 || x == 9 {
+				result += strconv.Itoa(y)
+				if x == 0 {
+					result += " "
+				}
+			} else {
+				result += b.Get(x-1, y-1)
+				result += " "
+			}
+		}
+		result += "\n"
+	}
+	return result
+}
+
+// turnのプレイヤーがボードに駒を置けるか判定
+func (b *Board) IsPuttable(turn int) bool {
+	for x := 0; x < 8; x++ {
+		for y := 0; y < 8; y++ {
+			// プレイヤー1が(x,y)に駒を配置できる
+			if b.IsPlaceable_xy(x, y, turn) {
+				return false
+			}
+		}
+	}
+	return true
+}
+
+// turnのプレイヤーが(x,y)に駒を置けるか判定
+func (b *Board) IsPlaceable_xy(x, y, turn int) bool {
+	// (x,y)に駒を配置できないならfalseを返す
+	if b.notPutValid(x, y) != 0 {
+		return false
+	}
+
+	// 方向オフセット: 左上，左，左下，上，下，右上，右，右下
+	dx := [8]int{-1, -1, -1, 0, 0, 1, 1, 1}
+	dy := [8]int{-1, 0, 1, -1, 1, -1, 0, 1}
+
+	for i := 0; i < 8; i++ { //8方向, reverseできるのか、チェック
+		nx, ny := x+dx[i], y+dy[i] // オフセットの方向に駒を1マス進める
+		count := 0                 // リバースできる駒の数
+
+		// (nx,ny)にturnプレイヤーでないに駒が存在する限り探索を続ける
+		for b.notPutValid(nx, ny) == 2 && b.tokens[nx+8*ny] != turn {
+			nx += dx[i]
+			ny += dy[i]
+			count++ //どこまでreverse必要をチェック
+		}
+		// 有効マスに駒を配置できる
+		if count > 0 && b.notPutValid(nx, ny) == 2 {
+			return true
+		}
+	}
+	return false
+}
+
+// テスト用ボード作成
+func (b *Board) make_board() {
+	b.tokens = []int{
+		0, 0, 0, 0, 0, 0, 0, 0,
+		0, 1, 0, 0, 0, 0, 0, 0,
+		0, 0, 1, 0, 0, 0, 0, 0,
+		0, 0, 0, 1, 0, 0, 0, 0,
+		0, 0, 0, 0, 1, 0, 0, 0,
+		0, 0, 0, 0, 0, 1, 0, 0,
+		0, 0, 0, 0, 0, 0, 1, 0,
+		0, 0, 0, 0, 0, 0, 0, 2,
+	}
+}
+
 func main() {
 	var x, y, i int
 	var ReverseError int
@@ -175,8 +267,25 @@ func main() {
 	board.BoardInitialization()                  //初期化
 	fmt.Printf("please input like: x[space]y\n") //gameの説明。拡張したいならどうぞ
 
+	board.make_board()
+
+	board.CurrentTurn = 1
 	for i = 0; i < 150; i++ {
+		// 誰もコマを置けないならループを抜ける
+		if board.IsPuttable(1) && board.IsPuttable(2) {
+			break
+		}
+
+		fmt.Printf("%s", board.BoardShow_with_coordinate())
+
+		// 現在のプレイヤーが駒を配置可能か判定する
+		if board.IsPuttable(board.CurrentTurn) {
+			fmt.Printf("Player%dは駒を配置できません\n", board.CurrentTurn)
+			board.SwitchTurn()
+		}
+
 		if ReverseError == 2 {
+			fmt.Printf("i = %d\n", i)
 			fmt.Printf("周りに相手の駒は存在しない、或いは駒列の末に貴方の駒は存在しない、もう一回入力してください\n")
 			ReverseError = 0
 		}
@@ -186,19 +295,21 @@ func main() {
 		} else if board.CurrentTurn == 2 {
 			fmt.Printf("Player2: Input (x,y)\n") //player2のターン。説明を拡張したいならどうぞ
 		}
-		fmt.Printf(board.BoardShow())
-		fmt.Scanf("%d %d", &x, &y)
+		fmt.Printf("%s", board.BoardShow())
+		fmt.Scan(&x, &y)
 
 		for board.notPutValid(x-1, y-1) != 0 { //errorの場合、もう一度入力
+			println(x, y)
 			if board.notPutValid(x-1, y-1) == 1 {
 				fmt.Printf("碁盤の中でわないので、もう一回入力してください\n")
-				fmt.Printf(board.BoardShow())
+				// fmt.Printf(board.BoardShow())
 			} else if board.notPutValid(x-1, y-1) == 2 {
 				fmt.Printf("駒はもう存在していますので、もう一回入力してください\n")
-				fmt.Printf(board.BoardShow())
+				// fmt.Printf(board.BoardShow())
 			}
-
-			fmt.Scanf("%d %d", &x, &y) //もう一度入力
+			println("もう一度")
+			// fmt.Scanf("%d %d", &x, &y) //もう一度入力
+			fmt.Scan(&x, &y)
 		}
 
 		ReverseError = board.Reverse(x-1, y-1)

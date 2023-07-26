@@ -260,14 +260,42 @@ func (b *Board) make_board() {
 	}
 }
 
+func (b *Board) CountTokens() (int, int) {
+	count_1p := 0
+	count_2p := 0
+	for x := 0; x < 8; x++ {
+		for y := 0; y < 8; y++ {
+			tokens := b.Get(x, y)
+			// player1の駒
+			if tokens == "o" {
+				count_1p++
+			} else if tokens == "x" {
+				count_2p++
+			}
+		}
+	}
+	return count_1p, count_2p
+}
+
+func (b *Board) ShowPlaceablePositions(turn int) {
+	fmt.Println("駒を置ける位置：")
+	for y := 0; y < 8; y++ {
+		for x := 0; x < 8; x++ {
+			if b.IsPlaceable_xy(x, y, turn) {
+				fmt.Printf("(%d, %d) ", x+1, y+1)
+			}
+		}
+	}
+	fmt.Println()
+}
+
 func main() {
 	var x, y, i int
 	var ReverseError int
 	board := Board{}
 	board.BoardInitialization()                  //初期化
 	fmt.Printf("please input like: x[space]y\n") //gameの説明。拡張したいならどうぞ
-
-	board.make_board()
+	// board.make_board()                           // テスト用
 
 	board.CurrentTurn = 1
 	for i = 0; i < 150; i++ {
@@ -278,7 +306,7 @@ func main() {
 
 		fmt.Printf("%s", board.BoardShow_with_coordinate())
 
-		// 現在のプレイヤーが駒を配置可能か判定する
+		// 現在のプレイヤーが駒を配置可能か判��する
 		if board.IsPuttable(board.CurrentTurn) {
 			fmt.Printf("Player%dは駒を配置できません\n", board.CurrentTurn)
 			board.SwitchTurn()
@@ -291,24 +319,25 @@ func main() {
 		}
 
 		if board.CurrentTurn == 1 {
-			fmt.Printf("Player1: Input (x,y)\n") //player1のターン。説明を拡張したいならどうぞ
+			count_1p, count_2p := board.CountTokens()
+			fmt.Printf("Player1: Input (x,y) o:%d x:%d\n", count_1p, count_2p) //player1のターン。説明を拡張したいならどうぞ
 		} else if board.CurrentTurn == 2 {
-			fmt.Printf("Player2: Input (x,y)\n") //player2のターン。説明を拡張したいならどうぞ
+			count_1p, count_2p := board.CountTokens()
+			fmt.Printf("Player2: Input (x,y) o:%d x:%d\n", count_1p, count_2p) //player2のターン。説明を拡張したいならどうぞ
 		}
-		fmt.Printf("%s", board.BoardShow())
+		board.ShowPlaceablePositions(board.CurrentTurn)
+		//fmt.Printf("%s", board.BoardShow())
 		fmt.Scan(&x, &y)
 
 		for board.notPutValid(x-1, y-1) != 0 { //errorの場合、もう一度入力
 			println(x, y)
 			if board.notPutValid(x-1, y-1) == 1 {
-				fmt.Printf("碁盤の中でわないので、もう一回入力してください\n")
+				fmt.Printf("碁盤の中ではないので、もう一回入力してください\n")
 				// fmt.Printf(board.BoardShow())
 			} else if board.notPutValid(x-1, y-1) == 2 {
 				fmt.Printf("駒はもう存在していますので、もう一回入力してください\n")
 				// fmt.Printf(board.BoardShow())
 			}
-			println("もう一度")
-			// fmt.Scanf("%d %d", &x, &y) //もう一度入力
 			fmt.Scan(&x, &y)
 		}
 
@@ -324,4 +353,5 @@ func main() {
 	} else if i == 150 {
 		fmt.Printf("rest round is 0, game over\n")
 	}
+	fmt.Printf("%s", board.BoardShow_with_coordinate())
 }
